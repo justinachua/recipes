@@ -1,8 +1,8 @@
 import React from 'react'; 
 import './App.css';
-import {AppProvider, Heading, MediaCard, List, Page, Layout, Stack, Badge, Caption, Subheading, TextStyle, TextContainer} from '@shopify/polaris';
+import {Heading, MediaCard, Stack, Badge, Subheading, TextStyle, TextContainer} from '@shopify/polaris';
 
-// Create each recipe card 
+// Creates each recipe card 
 const Recipe = ({title: titleString, calories, image, ingredients, url, cuisine, diet}) => {
 
   // Title = name of recipe and relevant badges 

@@ -1,3 +1,4 @@
+// Vite: npm run dev 
 import React, {useEffect, useState, useCallback} from 'react';
 import {Button, AppProvider, Page, Form, FormLayout, TextField} from '@shopify/polaris';
 import {useDebouncedCallback} from 'use-debounce';
@@ -9,13 +10,16 @@ import './App.css';
 const DEFAULT_QUERY_VALUE = 'chicken';
 
 function App() {
-  // From edamame (recipe API provider)
+  // From edamam (recipe API provider)
 	const APP_ID = 'ac7e110a';
 	const APP_KEY = '01f5603851e349b5506a7b724b9748ae';
 
+  // [current state, what allows you to update the second state]
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState(''); 
 
+  // getRecipes() is ran after every render (including the first)
+  // []is empty because we don't want to run the hook whenever a specific value changes
   useEffect(() => {
     getRecipes();
   }, []);
@@ -24,11 +28,13 @@ function App() {
   const getRecipes = async (query) => {
     // If the query is empty, we set the default value to chicken 
     const queryValue = query ? query : DEFAULT_QUERY_VALUE;
+    // Sends the search query to the API 
     const response = await fetch(
       `https://api.edamam.com/search?q=${queryValue}&app_id=${APP_ID}&app_key=${APP_KEY}`); 
     // Fetches the data from the API 
     const data = await response.json(); 
     response.mode = "no-cors"; 
+    // Sets the recipes so that we can display them 
     setRecipes(data.hits); 
     console.log(data.hits); 
   }; 
@@ -67,6 +73,7 @@ function App() {
         </Form>
         <br />
 
+        {/* Passes in all the data we need to display the recipes in Recipe */}
         {recipes.map(recipe =>(
           <Recipe
             key={recipe.recipe.label}
