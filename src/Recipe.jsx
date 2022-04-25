@@ -1,59 +1,59 @@
-import React from 'react'; 
+import React from 'react';
 import './App.css';
 import {Heading, MediaCard, Stack, Badge, Subheading, TextStyle, TextContainer} from '@shopify/polaris';
 
-// Creates each recipe card 
+// Creates each recipe card
 const Recipe = ({title: titleString, calories, image, ingredients, url, cuisine, diet}) => {
 
-  // Title = name of recipe and relevant badges 
+  // Title = name of recipe and relevant badges
   const title = (
    <Stack>
      <Heading>{titleString}</Heading>
      {cuisine.length && <Badge>{cuisine}</Badge>}
      {diet.length && <Badge>{diet}</Badge>}
-   </Stack> 
+   </Stack>
   )
 
-  // Description = calories and list of ingredients 
+  // Description = calories and list of ingredients
   const description = (
     <TextContainer>
       <Subheading>{Math.round(calories)} calories</Subheading>
       <pre></pre>
-      
-      {ingredients.map(ingredient => (
-        <TextStyle variation="subdued">{ingredient.text}&#10;</TextStyle>
-        
-      ))}
+      <Stack vertical spacing="extraTight">
+        {ingredients.map(ingredient => (
+          <p><TextStyle variation="subdued">{ingredient.text}&#10;</TextStyle></p>
+        ))}
+      </Stack>
     </TextContainer>
   )
-  
+
   return(
     <div className='new-line'>
-      <MediaCard 
+      <MediaCard
         title={title}
-        // URL leads to external recipe 
+        // URL leads to external recipe
         primaryAction={{
           content: `${titleString} Recipe`,
-          external: true, 
+          external: true,
           url,
         }}
         description={description}
         size="small"
       >
 
-        
-        <img 
+
+        <img
           alt=""
           width="100%"
           height="100%"
           style={{ objectFit: 'cover', objectPosition: 'center',}}
-          
+
           src={image}
         />
-      </MediaCard> 
+      </MediaCard>
       <br />
     </div>
-  ); 
+  );
 }
 
-export default Recipe; 
+export default Recipe;
